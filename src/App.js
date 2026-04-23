@@ -274,19 +274,6 @@ export default function App(){
     setAiLoad(false);
   },[C,sup.bal]);
 
-  const dlCSV=(name,content)=>{
-    const blob=new Blob([content],{type:"text/csv;charset=utf-8;"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;a.download=name;a.style.display="none";
-    document.body.appendChild(a);a.click();
-    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},100);
-  };
-  const parseCSV=(text,fields)=>{
-    const lines=text.trim().split("\n"),hdr=lines[0].toLowerCase().split(",").map(h=>h.trim().replace(/"/g,""));
-    const gi=(row,names)=>{const nm=names.find(nm=>hdr.includes(nm));return nm?(row[hdr.indexOf(nm)]||"").trim().replace(/"/g,""):""};
-    return lines.slice(1).filter(l=>l.trim()).map(line=>{const row=line.split(","),obj={id:uid()};fields.forEach(([k,ns])=>{obj[k]=gi(row,ns);});return obj;});
-  };
 
   // ══ TAB: PROPERTY ═════════════════════════════════════════
   const tabProperty=()=>(
